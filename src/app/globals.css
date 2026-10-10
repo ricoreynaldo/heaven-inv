@@ -1,26 +1,247 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Heaven Inv design system. Sumber kebenaran: MASTER.md di root proyek.
+ *
+ * Palet pemilik: #FFFFFF (surface) · #FAF9F6 (canvas) · #252321 (ink) · #C9B79C (accent).
+ * Accent hanya dekor (tag, hairline, hover); untuk teks beraksen pakai accent-deep.
+ * Komponen flat: hairline 1px, tanpa shadow kecuali shadow-pop untuk dialog/toast.
+ */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@theme {
+  --color-surface: #ffffff;
+  --color-canvas: #faf9f6;
+  --color-ink: #252321;
+  --color-ink-soft: #5e5a55;
+  --color-ink-muted: #77716a;
+  --color-accent: #c9b79c;
+  --color-accent-soft: #efe8dc;
+  --color-accent-deep: #7c6a4f;
+  --color-line: #e9e5de;
+  --color-line-strong: #d6d0c6;
+  --color-success: #3f6b45;
+  --color-success-soft: #e6ede4;
+  --color-danger: #9e3b30;
+  --color-danger-soft: #f6e4e0;
+  --color-warning: #8a5f1c;
+  --color-warning-soft: #f5ebd8;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --font-display: var(--font-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist), "Geist", ui-sans-serif, system-ui, sans-serif;
+
+  /* Sudut tajam (thesis v3, MASTER.md → Radius). Yang bulat hanya pakai rounded-full. */
+  --radius-card: 0;
+  --radius-inner: 0;
+  --radius-control: 0;
+
+  --shadow-pop: 0 1px 2px rgb(37 35 33 / 0.05), 0 18px 40px -20px rgb(37 35 33 / 0.28);
+
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-dialog: dialog-in 300ms var(--ease-expo) both;
+  --animate-sheet: sheet-in 400ms var(--ease-expo) both;
+  --animate-fade: fade 200ms var(--ease-out) both;
+
+  @keyframes dialog-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes sheet-in {
+    from {
+      opacity: 0;
+      transform: translateX(-16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Display sans: tebal & rapat. Utility (font-normal, tracking-*) tetap bisa menimpa. */
+  .font-display {
+    font-weight: 600;
+    letter-spacing: -0.035em;
+  }
+
+  ::selection {
+    background-color: var(--color-accent-soft);
+    color: var(--color-ink);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  button,
+  [role="button"],
+  a,
+  summary,
+  label[for],
+  select {
+    touch-action: manipulation;
+  }
+
+  button:not(:disabled),
+  [role="button"],
+  summary,
+  select:not(:disabled) {
+    cursor: pointer;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  dialog::backdrop {
+    background: rgb(37 35 33 / 0.4);
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/*
+ * Thesis v5 (MASTER.md): judul tenang ala lookbook. Geist 600 kapital dengan
+ * spasi huruf lebar; ukuran sedang (diatur per tempat di komponen).
+ */
+@utility title-caps {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+/* Teks kecil kapital berspasi lebar: subjudul abu-abu, link teks, kolom info. */
+@utility meta-caps {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  line-height: 1.8;
+  text-transform: uppercase;
+}
+
+/* Label kecil uppercase ber-tracking (allowed pattern di MASTER.md). */
+@utility label-caps {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/*
+ * Elemen yang dianimasikan GSAP masuk ke layar ([data-reveal]) disembunyikan
+ * sebelum JS jalan supaya tidak berkedip. Tanpa JS (html tanpa .js-motion)
+ * atau dengan reduced motion, konten tampil apa adanya.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js-motion [data-reveal],
+  html.js-motion [data-hero-title],
+  html.js-motion [data-hero-item],
+  html.js-motion [data-hero-sub],
+  html.js-motion [data-split-title],
+  html.js-motion [data-flip-grid] > [data-flip-id] {
+    opacity: 0;
+  }
+}
+
+/*
+ * Elemen yang digerakkan GSAP lewat transform (tombol magnetik) tidak boleh
+ * punya transisi CSS pada transform: keduanya akan saling melawan dan gerak
+ * terasa tersendat. Aturan di luar @layer ini menang atas utility Tailwind.
+ */
+/* Strip "Lihat demo" di kartu: mulai di bawah tepi gambar; GSAP (card-motion) mengangkatnya. */
+[data-card-demo] {
+  transform: translateY(101%);
+}
+
+[data-magnetic] {
+  transition-property: color, background-color, border-color, box-shadow, opacity, translate, scale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

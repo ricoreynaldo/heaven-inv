@@ -1,0 +1,104 @@
+// Heaven Inv — skema database.
+// Konten homepage & pengaturan situs disimpan sebagai pasangan key/value
+// (SiteContent, SiteSettings) supaya admin bisa mengubahnya tanpa migrasi.
+//
+// CATATAN: saat ini aplikasi memakai database dummy JSON (src/lib/store).
+// Skema ini disiapkan untuk saat backend Postgres disambungkan kembali;
+// kolom `badge` sudah diganti `tags` dan butuh migrasi baru.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String   @default("Admin")
+  passwordHash String   @map("password_hash")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("admins")
+}
+
+model Category {
+  id          String     @id @default(cuid())
+  name        String
+  slug        String     @unique
+  description String     @default("")
+  image       String?
+  isActive    Boolean    @default(true) @map("is_active")
+  sortOrder   Int        @default(0) @map("sort_order")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
+  templates   Template[]
+
+  @@index([isActive, sortOrder])
+  @@map("categories")
+}
+
+model Template {
+  id          String          @id @default(cuid())
+  name        String
+  slug        String          @unique
+  description String          @default("")
+  /// Harga dalam Rupiah (bilangan bulat).
+  price       Int
+  /// Harga sebelum diskon (harga coret), hanya dipakai saat tag promo.
+  originalPrice Int?        @map("original_price")
+  thumbnail   String
+  demoUrl     String?         @map("demo_url")
+  /// Tag katalog: best-seller | new | promo | premium (lihat src/lib/tags.ts).
+  tags        String[]        @default([])
+  features    String[]        @default([])
+  isFeatured  Boolean         @default(false) @map("is_featured")
+  isPublished Boolean         @default(false) @map("is_published")
+  sortOrder   Int             @default(0) @map("sort_order")
+  categoryId  String          @map("category_id")
+  category    Category        @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  images      TemplateImage[]
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+
+  @@index([isPublished, sortOrder])
+  @@index([isPublished, isFeatured])
+  @@index([categoryId])
+  @@index([createdAt])
+  @@map("templates")
+}
+
+model TemplateImage {
+  id         String   @id @default(cuid())
+  templateId String   @map("template_id")
+  template   Template @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  url        String
+  sortOrder  Int      @default(0) @map("sort_order")
+
+  @@index([templateId, sortOrder])
+  @@map("template_images")
+}
+
+model SiteContent {
+  id        String   @id @default(cuid())
+  section   String
+  key       String
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([section, key])
+  @@map("site_content")
+}
+
+model SiteSettings {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("site_settings")
+}
