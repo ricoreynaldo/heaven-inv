@@ -2,9 +2,8 @@
 // Konten homepage & pengaturan situs disimpan sebagai pasangan key/value
 // (SiteContent, SiteSettings) supaya admin bisa mengubahnya tanpa migrasi.
 //
-// CATATAN: saat ini aplikasi memakai database dummy JSON (src/lib/store).
-// Skema ini disiapkan untuk saat backend Postgres disambungkan kembali;
-// kolom `badge` sudah diganti `tags` dan butuh migrasi baru.
+// Dipakai driver Postgres (src/lib/store/postgres.ts); di laptop aplikasi
+// memakai database dummy JSON kecuali DATA_STORE=postgres (lihat README).
 
 generator client {
   provider = "prisma-client"

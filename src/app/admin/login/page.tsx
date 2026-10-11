@@ -6,6 +6,7 @@ import { BrandMark } from "@/components/site/brand-mark";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getSettings } from "@/lib/data/public";
 import { DUMMY_ADMIN_EMAIL, DUMMY_ADMIN_PASSWORD } from "@/lib/store/seed";
+import { resolveStoreDriver } from "@/lib/store";
 
 export const metadata: Metadata = {
   title: "Masuk Admin",
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 
 export default async function AdminLoginPage() {
   const settings = await getSettings();
-  const showDummyHint = process.env.NODE_ENV !== "production";
+  const showDummyHint = process.env.NODE_ENV !== "production" && resolveStoreDriver() === "json";
   return (
     <main className="grid min-h-dvh place-items-center px-5 py-16">
       <div className="w-full max-w-sm">

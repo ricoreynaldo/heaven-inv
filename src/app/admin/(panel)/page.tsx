@@ -18,6 +18,7 @@ import { SmartImage } from "@/components/ui/smart-image";
 import { requireAdmin } from "@/lib/auth/admin";
 import { getAdminSettings, getDashboardStats, getRecentTemplates } from "@/lib/data/admin";
 import { formatDate, formatRupiah } from "@/lib/format";
+import { resolveStoreDriver } from "@/lib/store";
 
 export const metadata: Metadata = { title: "Dashboard" };
 
@@ -50,13 +51,15 @@ export default async function AdminDashboardPage() {
         }
       />
 
-      <div className="mb-4 flex gap-3 rounded-card bg-accent-soft p-4 text-sm text-ink">
-        <DatabaseIcon size={18} className="mt-0.5 shrink-0" aria-hidden="true" />
-        <p>
-          Mode data dummy: semua perubahan disimpan di file <code className="rounded bg-surface px-1.5 py-0.5 text-xs">.data/db.json</code>.
-          Hapus file itu untuk kembali ke data contoh.
-        </p>
-      </div>
+      {resolveStoreDriver() === "json" ? (
+        <div className="mb-4 flex gap-3 rounded-card bg-accent-soft p-4 text-sm text-ink">
+          <DatabaseIcon size={18} className="mt-0.5 shrink-0" aria-hidden="true" />
+          <p>
+            Mode data dummy: semua perubahan disimpan di file <code className="rounded bg-surface px-1.5 py-0.5 text-xs">.data/db.json</code>.
+            Hapus file itu untuk kembali ke data contoh.
+          </p>
+        </div>
+      ) : null}
 
       {needsWhatsApp ? (
         <div role="status" className="mb-8 flex flex-col gap-4 rounded-card bg-warning-soft p-4 ring-1 ring-warning/20 sm:flex-row sm:items-center sm:justify-between">

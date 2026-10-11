@@ -14,8 +14,7 @@ import type { CatalogQuery } from "@/lib/validation/catalog";
  * prerender (static shell) dan diperbarui setelah admin menyimpan perubahan
  * (server action memanggil revalidateTag(tag, "max") dengan tag yang sama).
  *
- * Sumber data sementara: database dummy JSON (lib/store). Bentuk data yang
- * dikembalikan sama dengan versi Prisma sebelumnya.
+ * Sumber data: lib/store (database dummy JSON di laptop, Postgres/Neon di Vercel).
  */
 
 export const CATALOG_PAGE_SIZE = 12;

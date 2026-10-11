@@ -9,7 +9,7 @@ import { isTemplateTag, type TemplateTag } from "@/lib/tags";
 /**
  * Query untuk panel admin: selalu segar (tanpa cache) karena admin harus
  * melihat hasil perubahannya sendiri. Halaman pemanggil sudah memanggil
- * requireAdmin() sebelumnya. Sumber data sementara: database dummy JSON.
+ * requireAdmin() sebelumnya. Sumber data: lib/store (dummy JSON atau Postgres).
  */
 
 export const ADMIN_PAGE_SIZE = 15;
