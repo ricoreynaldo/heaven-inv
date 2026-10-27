@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<!-- Sumber banner pratinjau link (og:image) 1200×630 → public/brand/og-default.jpg.
+     Render ulang: buka di Chrome 1200×630 lalu screenshot.
+     Bila file ini ada, `npm run assets:generate` tidak menimpa og-default.jpg. -->
+<title>OG Banner — Heaven Inv</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=Geist:wght@400;500&family=Cormorant+Garamond:ital,wght@1,400&display=swap" rel="stylesheet" />
+<style>
+  :root { --canvas: #faf9f6; --ink: #252321; --ink-muted: #77716a; --accent: #c9b79c; --accent-deep: #7c6a4f; --line: #e9e5de; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body { position: relative; background: var(--canvas); color: var(--ink); font-family: 'Geist', sans-serif;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .frame { position: absolute; inset: 28px; border: 1px solid var(--line); pointer-events: none; }
+  .eyebrow { font: 500 15px/1 'Geist', sans-serif; letter-spacing: .32em; text-transform: uppercase; color: var(--ink-muted); }
+  .brand { font: 700 116px/1 'Plus Jakarta Sans', sans-serif; letter-spacing: -.045em; margin-top: 30px; }
+  .tag { font: italic 400 36px/1.2 'Cormorant Garamond', serif; color: var(--accent-deep); margin-top: 18px; }
+  .rule { width: 56px; height: 1px; background: var(--accent); margin: 40px 0 26px; }
+  .foot { font: 400 17px/1 'Geist', sans-serif; letter-spacing: .08em; color: var(--ink-muted); }
+  .foot i { font-style: normal; color: var(--accent); margin: 0 14px; }
+</style>
+</head>
+<body>
+  <div class="frame"></div>
+  <p class="eyebrow">Katalog undangan digital</p>
+  <h1 class="brand">Heaven Inv</h1>
+  <p class="tag">Your story, beautifully invited.</p>
+  <span class="rule"></span>
+  <p class="foot">Pernikahan<i>·</i>Lamaran<i>·</i>Ulang tahun<i>·</i>Acara kantor</p>
+</body>
+</html>

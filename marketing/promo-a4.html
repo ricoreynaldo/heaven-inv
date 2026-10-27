@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<!-- Poster promosi A4 (210×297 mm) Heaven Inv — layout editorial minimalis (judul besar menimpa
+     panel, teks vertikal), panel berisi tumpukan contoh undangan dari folder undangan-* di sebelah heaven-inv.
+     QR berisi https://heaven-inv.vercel.app/ (paket npm `qrcode`, koreksi galat M).
+     Ekspor: cetak ke PDF A4 tanpa margin, atau screenshot 2480×3508 (300 dpi). -->
+<title>Poster A4 — Heaven Inv</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  @page { size: A4; margin: 0; }
+  :root { --paper: #ffffff; --ink: #151413; --soft: #55524e; --muted: #8a8681; --panel: #ebe9e5; --line: #dedad3; --red: #d0312d; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 210mm; height: 297mm; }
+  body { position: relative; overflow: hidden; background: var(--paper); color: var(--ink); font-family: 'Geist', sans-serif;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  /* bilah atas */
+  .top { position: absolute; left: 16mm; right: 16mm; top: 15mm; display: flex; justify-content: space-between; align-items: center; }
+  .brand { display: flex; align-items: center; gap: 2.6mm; font: 700 15pt/1 'Plus Jakarta Sans', sans-serif; letter-spacing: -.02em; }
+  .brand .mark { font-weight: 800; letter-spacing: -.06em; }
+  .brand .mark span { color: var(--red); }
+  .icons { display: flex; gap: 4mm; }
+  .icons svg { width: 5mm; height: 5mm; display: block; }
+
+  /* panel foto + tumpukan undangan */
+  .panel { position: absolute; left: 56mm; top: 64mm; width: 108mm; height: 150mm; background: var(--panel); overflow: visible; }
+  .stack { position: absolute; inset: 0; }
+  .card { position: absolute; width: 58mm; aspect-ratio: 4 / 5; padding: 1.3mm; background: #fff;
+    box-shadow: 0 6mm 10mm -5mm rgba(20, 18, 16, .35), 0 .4mm 1mm rgba(20, 18, 16, .12); }
+  .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .k1 { left: 6mm;  top: 30mm; rotate: -10deg; }
+  .k2 { left: 17mm; top: 42mm; rotate: -4.5deg; }
+  .k3 { left: 29mm; top: 54mm; rotate: 1.5deg; }
+  .k4 { left: 40mm; top: 66mm; rotate: 7deg; }
+
+  /* tipografi besar */
+  .title { position: absolute; left: 30mm; top: 31mm; z-index: 3; font: 800 70pt/.84 'Plus Jakarta Sans', sans-serif; letter-spacing: -.055em; }
+  .title span { display: block; }
+  .side-word { position: absolute; z-index: 3; left: 150mm; top: 214mm; transform-origin: 0 0; rotate: -90deg;
+    font: 800 56pt/1 'Plus Jakarta Sans', sans-serif; letter-spacing: -.05em; }
+
+  /* teks vertikal */
+  .v-left { position: absolute; left: 20mm; top: 214mm; transform-origin: 0 0; rotate: -90deg; white-space: nowrap;
+    font: 500 9.5pt/1 'Geist', sans-serif; letter-spacing: .02em; }
+  .v-right { position: absolute; left: 191mm; top: 64mm; transform-origin: 0 0; rotate: 90deg; white-space: nowrap;
+    display: flex; align-items: center; gap: 4mm; font: 500 9.5pt/1 'Geist', sans-serif; }
+  .v-right .pill { padding: 2.2mm 4.2mm; border: .35mm solid var(--ink); border-radius: 999px; font: 700 10pt/1 'Plus Jakarta Sans', sans-serif; }
+
+  /* bawah */
+  .bottom { position: absolute; left: 16mm; right: 16mm; top: 226mm; text-align: center; }
+  .cats { display: flex; justify-content: center; align-items: center; gap: 4mm; font: 600 13pt/1 'Plus Jakarta Sans', sans-serif; letter-spacing: -.01em; }
+  .cats i { width: 1.6mm; height: 1.6mm; border-radius: 50%; background: var(--ink); }
+  .desc { margin-top: 4.5mm; font: 400 10pt/1.5 'Geist', sans-serif; color: var(--soft); }
+  .cta { margin-top: 7mm; display: inline-flex; align-items: center; gap: 6mm; text-align: left; }
+  .qr { width: 24mm; height: 24mm; padding: 1.6mm; border: .3mm solid var(--line); }
+  .qr-svg { width: 100%; height: 100%; display: block; }
+  .cta p { font: 400 8.5pt/1.3 'Geist', sans-serif; color: var(--muted); letter-spacing: .02em; }
+  .cta .url { font: 700 15pt/1.1 'Plus Jakarta Sans', sans-serif; color: var(--ink); letter-spacing: -.02em; margin-top: 1.6mm; }
+  .cta .wa { margin-top: 2.6mm; font: 500 10.5pt/1 'Geist', sans-serif; color: var(--ink); }
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="brand"><span class="mark">H<span>i</span></span>Heaven Inv</div>
+    <div class="icons">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#151413" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24s8.24 3.7 8.24 8.24-3.7 8.24-8.24 8.24Zm4.52-6.17c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.56.12-.16.25-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.12-1.04-.38-1.99-1.23-.73-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#151413" stroke-width="1.8"><circle cx="12" cy="12" r="9.2"/><path d="M2.8 12h18.4M12 2.8c2.6 2.5 3.9 5.6 3.9 9.2s-1.3 6.7-3.9 9.2c-2.6-2.5-3.9-5.6-3.9-9.2S9.4 5.3 12 2.8Z"/></svg>
+    </div>
+  </div>
+
+  <h1 class="title"><span>undangan</span><span>digital</span></h1>
+
+  <div class="panel">
+    <div class="stack">
+      <div class="card k1"><img src="../../undangan-netflix/thumbnail/thumbnail.jpg" alt="" /></div>
+      <div class="card k2"><img src="../../undangan-kejawen/thumbnail/thumbnail.jpg" alt="" /></div>
+      <div class="card k3"><img src="../../undangan-y2k/thumbnail/thumbnail.jpg" alt="" /></div>
+      <div class="card k4"><img src="../../undangan-garden/thumbnail/thumbnail.jpg" alt="" /></div>
+    </div>
+  </div>
+
+  <p class="side-word">katalog</p>
+
+  <p class="v-left">WhatsApp → 0859 2006 3749</p>
+  <p class="v-right"><span class="pill">Demo</span>Lihat demo setiap tema sebelum memesan</p>
+
+  <div class="bottom">
+    <div class="cats">Pernikahan<i></i>Lamaran<i></i>Ulang tahun<i></i>Acara kantor</div>
+    <p class="desc">Pilih tema, lihat demonya, lalu pesan lewat WhatsApp —<br />undangan siap dibagikan dalam satu tautan.</p>
+    <div class="cta">
+      <div class="qr"><svg class="qr-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" shape-rendering="crispEdges"><path stroke="#151413" d="M0 0.5h7m1 0h2m1 0h1m1 0h3m2 0h3m1 0h7M0 1.5h1m5 0h1m1 0h1m1 0h4m2 0h1m3 0h1m1 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m2 0h1m6 0h1m1 0h1m3 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h2m1 0h1m2 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m4 0h1m1 0h1m1 0h2m1 0h3m1 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M8 7.5h1m6 0h4M0 8.5h1m1 0h2m1 0h3m1 0h1m1 0h3m1 0h1m1 0h3m2 0h1m2 0h1m1 0h2M0 9.5h1m1 0h4m2 0h2m3 0h3m1 0h8m3 0h1M2 10.5h1m1 0h1m1 0h1m1 0h2m1 0h3m2 0h3m1 0h2m1 0h2m1 0h2M0 11.5h2m2 0h2m1 0h1m2 0h1m5 0h1m3 0h4m4 0h1M0 12.5h1m1 0h6m2 0h1m1 0h1m1 0h2m1 0h2m1 0h1m2 0h1m1 0h2M1 13.5h1m1 0h1m1 0h1m1 0h2m1 0h1m3 0h1m1 0h1m2 0h1m2 0h1m3 0h3M0 14.5h1m4 0h2m1 0h1m3 0h2m1 0h5m1 0h1m1 0h1m2 0h3M1 15.5h1m2 0h2m1 0h1m6 0h1m1 0h1m1 0h5m1 0h1m2 0h1M0 16.5h1m1 0h1m2 0h2m1 0h2m2 0h1m1 0h3m1 0h3m2 0h3m1 0h1M3 17.5h1m4 0h2m1 0h1m2 0h1m1 0h1m6 0h1m1 0h3M0 18.5h1m3 0h1m1 0h1m1 0h9m1 0h1m3 0h3m1 0h1M3 19.5h1m5 0h2m1 0h3m2 0h3m1 0h1m4 0h1M1 20.5h2m2 0h3m1 0h2m1 0h3m1 0h11M8 21.5h1m6 0h2m2 0h2m3 0h5M0 22.5h7m1 0h1m1 0h2m2 0h2m1 0h1m1 0h2m1 0h1m1 0h2m1 0h1M0 23.5h1m5 0h1m1 0h8m4 0h1m3 0h2M0 24.5h1m1 0h3m1 0h1m4 0h1m5 0h1m2 0h5m1 0h1m1 0h1M0 25.5h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h1m3 0h2m2 0h1m1 0h3m1 0h1M0 26.5h1m1 0h3m1 0h1m1 0h1m5 0h1m5 0h1m2 0h1m2 0h1m1 0h1M0 27.5h1m5 0h1m5 0h3m1 0h1m1 0h1m1 0h3m1 0h2m1 0h1M0 28.5h7m1 0h1m1 0h1m4 0h1m3 0h3m1 0h2m2 0h1"/></svg>
+</div>
+      <div>
+        <p>Scan untuk melihat katalog</p>
+        <p class="url">heaven-inv.vercel.app</p>
+        <p class="wa">WA 0859 2006 3749</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

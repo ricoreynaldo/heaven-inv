@@ -206,6 +206,129 @@
   line-height: 1.4;
 }
 
+/* Hero Caspia: lapisan media 0, copy dan kontrol 1; navbar tetap di atas hero. */
+.hero-gallery-section {
+  overflow: clip;
+}
+
+.hero-stage {
+  --hero-stage-height: max(38rem, calc(100svh - 4rem));
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  min-height: var(--hero-stage-height);
+  overflow: clip;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: calc(100% - 2.5rem);
+  flex-direction: column;
+  align-items: center;
+  padding-block: 11rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.hero-copy a {
+  pointer-events: auto;
+}
+
+.hero-headline {
+  max-width: 100%;
+  font-family: var(--font-sans);
+  font-size: clamp(2.5rem, 10.7vw, 4.5rem);
+  font-weight: 600;
+  letter-spacing: -0.065em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.hero-headline-long {
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  letter-spacing: -0.045em;
+}
+
+.hero-description {
+  max-width: 27rem;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+}
+
+.hero-media {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero-card {
+  position: absolute;
+  width: clamp(4.75rem, 23vw, 6.5rem);
+  aspect-ratio: 4 / 5;
+  transform: translate(-50%, -50%);
+}
+
+.hero-card-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-canvas);
+}
+
+.hero-card[data-image-error] { visibility: hidden; }
+
+.hero-card:nth-child(1) { left: 16%; top: 13%; }
+.hero-card:nth-child(2) { left: 80%; top: 15%; width: clamp(5.5rem, 26vw, 7rem); }
+.hero-card:nth-child(3) { left: 22%; top: 83%; }
+.hero-card:nth-child(4) { left: 84%; top: 84%; }
+.hero-card:nth-child(n + 5) { display: none; }
+
+.hero-motion-toggle {
+  position: absolute;
+  z-index: 1;
+  bottom: 1rem;
+  left: 1.25rem;
+}
+
+@media (min-width: 40rem) {
+  .hero-card { width: 8rem; }
+  .hero-card:nth-child(2) { width: 8.75rem; }
+  .hero-copy { width: 75%; }
+  .hero-headline { font-size: clamp(4rem, 10.7vw, 10rem); }
+  .hero-headline-long { font-size: clamp(2.5rem, 6.5vw, 6.5rem); }
+}
+
+@media (min-width: 64rem) {
+  .hero-copy { width: 70%; padding-block: 10rem; }
+  .hero-description { font-size: 0.875rem; }
+  .hero-card:nth-child(n) {
+    display: block;
+    left: 50%;
+    top: 48%;
+    width: clamp(7rem, 12.4vw, 11.5rem);
+    transform: translate(calc(-50% + var(--hero-x)), calc(-50% + var(--hero-y)));
+  }
+  .hero-card:nth-child(1) { --hero-x: -38vw; --hero-y: calc(var(--hero-stage-height) * -0.14); }
+  .hero-card:nth-child(2) { --hero-x: -21vw; --hero-y: calc(var(--hero-stage-height) * -0.36); width: clamp(8rem, 13.5vw, 12rem); }
+  .hero-card:nth-child(3) { --hero-x: 23vw; --hero-y: calc(var(--hero-stage-height) * -0.35); }
+  .hero-card:nth-child(4) { --hero-x: 44vw; --hero-y: calc(var(--hero-stage-height) * -0.01); width: clamp(6.5rem, 11vw, 10rem); }
+  .hero-card:nth-child(5) { --hero-x: 29vw; --hero-y: calc(var(--hero-stage-height) * 0.37); }
+  .hero-card:nth-child(6) { --hero-x: -7vw; --hero-y: calc(var(--hero-stage-height) * 0.42); }
+  .hero-card:nth-child(7) { --hero-x: -40vw; --hero-y: calc(var(--hero-stage-height) * 0.31); width: clamp(6.5rem, 11vw, 10rem); }
+  .hero-card:nth-child(n + 8) { display: none; }
+  .hero-motion-toggle { left: 2rem; bottom: 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-motion-toggle { display: none; }
+}
+
 /*
  * Elemen yang dianimasikan GSAP masuk ke layar ([data-reveal]) disembunyikan
  * sebelum JS jalan supaya tidak berkedip. Tanpa JS (html tanpa .js-motion)
@@ -216,6 +339,7 @@
   html.js-motion [data-hero-title],
   html.js-motion [data-hero-item],
   html.js-motion [data-hero-sub],
+  html.js-motion [data-hero-card-image],
   html.js-motion [data-split-title],
   html.js-motion [data-flip-grid] > [data-flip-id] {
     opacity: 0;

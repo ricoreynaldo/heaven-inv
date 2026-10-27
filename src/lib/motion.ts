@@ -13,8 +13,13 @@ export const MOTION = {
   rise: 16,
   /** Tombol magnetik: bagian jarak kursor yang diikuti tombol (0.3 = 30%). */
   magnet: 0.3,
-  /** Gambar di tengah judul hero berganti setiap n detik. */
-  heroCycle: 2.4,
+  /** Galeri hero: gambar muncul di titik acak, melayang (px), lalu menghilang. */
+  heroReveal: 0.9,
+  heroHoldMin: 2,
+  heroHoldMax: 3.6,
+  heroGapMax: 0.8,
+  heroDrift: 28,
+  easeGentle: "sine.inOut",
 } as const;
 
 /** Pointer presisi (mouse/trackpad) dan pengguna tidak meminta reduced motion. */

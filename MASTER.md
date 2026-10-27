@@ -142,7 +142,19 @@ Tetap bulat hanya: toggle switch, avatar inisial, spinner.
 Tidak ada untuk kartu/panel (hairline `ring-1 ring-line`). Satu shadow halus `shadow-pop`
 hanya untuk dialog, toast, tombol WhatsApp melayang, dan kartu tumpukan di hero (memisahkan lapisan).
 
-### Hero: lookbook (v5)
+### Hero: galeri Caspia (2026-10-27)
+
+Menggantikan hero lookbook v5 atas permintaan pemilik. Latar tetap `surface` putih.
+Headline CMS kapital besar dan rapat di tengah, tagline, kalimat pembuka, serta dua link CTA.
+Maksimal tujuh thumbnail 4:5 dipilih acak tanpa duplikasi dari seluruh katalog published dengan
+kategori aktif setiap kunjungan; pemilihan di browser agar cache server dan hydration tetap aman.
+Gambar mengorbit perlahan (72 detik/putaran), dengan jalur yang menyisakan ruang tengah untuk copy.
+Pada layar <1024px, empat gambar berada di tepi atas/bawah dengan drift 10px. Efek berulang ini
+diizinkan khusus hero sesuai referensi baru. Ada kontrol Jeda/Putar; gerak berhenti saat hero di
+luar viewport atau tab tersembunyi. Reduced motion menampilkan komposisi statis tanpa kontrol.
+Tidak ada perubahan pada nav, palet, copy CMS, atau pola section lainnya.
+
+### Hero: lookbook (v5, digantikan hero galeri)
 
 Judul dari Konten > Bagian atas (`headline`, saat ini nama brand "Heaven Inv"; dipisah di koma
 pertama bila ada), tidak patah di layar ≥768px. `eyebrow` = keterangan abu-abu di bawah judul (saat ini

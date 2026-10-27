@@ -12,6 +12,7 @@
  * Output: public/seed/** dan public/brand/**. Admin tetap bisa mengganti semua
  * gambar ini lewat panel admin.
  */
+import { existsSync } from "node:fs";
 import { mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -818,7 +819,8 @@ async function main() {
   await heroComposite(byslug);
   await aboutComposite(byslug);
   await categoryImages(byslug);
-  await ogImage(byslug);
+  // Banner og:image final dirender dari scripts/og-banner.html — jangan ditimpa placeholder.
+  if (!existsSync(path.join(path.dirname(fileURLToPath(import.meta.url)), "og-banner.html"))) await ogImage(byslug);
   await favicon();
   console.log("done");
 }
